@@ -21,7 +21,7 @@ def clean_text(text: str, memo, char_win=DEFAULT_CHARACTER_WINDOW) -> str:
             print(f"Char: {i} >> \"{char}\"   within  \"{get_char_window(text, i, char_win)}\"")
             # invalid_chars.append(char)
             memo.update(char, "")
-            new_char = input(f"Replacement for \"{char}\": ")
+            new_char = input(f"Replacement for \"{char}\" (Press `Enter` to remove char): ")
             memo.update(char, new_char)
 
     for char, new_char in memo.iter():
