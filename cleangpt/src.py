@@ -10,7 +10,7 @@ def get_char_window(text, i, window_size):
     return text[low: high]
 
 def collapse_extra_spaces(text):
-    return "".join(text.split(" "))
+    return " ".join(text.split(" "))
 
 def clean_text(text: str, memo, char_win=DEFAULT_CHARACTER_WINDOW) -> str:
     n = len(text)
@@ -18,7 +18,7 @@ def clean_text(text: str, memo, char_win=DEFAULT_CHARACTER_WINDOW) -> str:
     for i in range(n):
         char = text[i]
         if char not in VALID_CHARACTERS and not memo.contains(char):
-            print(f"\"{char}\" - \"{get_char_window(text, i, char_win)}\"")
+            print(f"Char: {i} >> \"{char}\"   within  \"{get_char_window(text, i, char_win)}\"")
             # invalid_chars.append(char)
             memo.update(char, "")
             new_char = input(f"Replacement for \"{char}\": ")
