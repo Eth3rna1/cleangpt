@@ -15,18 +15,28 @@ def collapse_extra_spaces(text):
 def clean_text(text: str, memo, char_win=DEFAULT_CHARACTER_WINDOW) -> str:
     n = len(text)
 
+    modifications = 0
+
     for i in range(n):
         char = text[i]
-        if char not in VALID_CHARACTERS and not memo.contains(char):
-            print(f"Char: {i} >> \"{char}\"   within  \"{get_char_window(text, i, char_win)}\"")
-            # invalid_chars.append(char)
-            memo.update(char, "")
-            new_char = input(f"Replacement for \"{char}\" (Press `Enter` to remove char): ")
-            memo.update(char, new_char)
+        if char not in VALID_CHARACTERS:
+            print(f"Char: {i} >> {char!r}   within  {get_char_window(text, i, char_win)!r}")
+
+            if not memo.contains(char):
+                memo.update(char, "")
+                new_char = input(f"Replacement for {char!r} (Press `Enter` to remove char): ")
+                memo.update(char, new_char)
+
+    orig_space_count = text.count(" ")
 
     for char, new_char in memo.iter():
+        modifications += text.count(char)
         text = text.replace(char, new_char)
 
     text = collapse_extra_spaces(text)
+
+    modifications += abs(orig_space_count - text.count(" "))
+
+    print(f"\nPerformed `{modifications}` modifications: \n")
 
     return text
